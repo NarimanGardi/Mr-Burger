@@ -24,7 +24,7 @@ Route::redirect('/', 'login');
 Route::group(['middleware' => ['auth', 'isActive']], function () {
     Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
     Route::resource('clients', ClientController::class);
-    // Route::resource('roles', RoleController::class);
+    Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
     // Route::get('/reports', [DashboardController::class, 'reports'])->name('reports');
     Route::get('/default-theme', [ThemeSettingController::class, 'defaultTheme'])->name('default-theme');

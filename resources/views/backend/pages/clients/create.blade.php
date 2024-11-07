@@ -1,9 +1,9 @@
 @extends('backend.app')
-@section('title', __('زیادکردنی کڵایەنت'))
+@section('title', __('زیادکردنی مقاول'))
 @section('content')
     <div class="page-content">
         <div class="container-xxxl flex-grow-1 container-p-y">
-            <h4 class="fw-bold mb-4"><span class="text-muted fw-light">زیادکردنی کڵایەنت</span></h4>
+            <h4 class="fw-bold mb-4"><span class="text-muted fw-light">زیادکردنی مقاول</span></h4>
             <div class="row">
                 <div class="col-md-12">
                     <div class="card mb-4">
@@ -19,13 +19,9 @@
                                             value="{{ old('name') }}" />
                                     </div>
                                     <div class="mb-3 col-md-8">
-                                        <label for="type" class="form-label">ناو</label>
-                                        <select class="form-select" id="type" name="type">
-                                            <option value="کارمەند">کارمەند</option>
-                                            <option value="مشتەری">مشتەری</option>
-                                            <option value="سەرمایەگوزار">سەرمایەگوزار</option>
-                                            <option value="بەرێوبەر">بەرێوبەر</option>
-                                        </select>
+                                        <label for="debt" class="form-label">قەزر</label>
+                                        <input class="form-control" type="number" id="debt" name="debt" min="0"
+                                            value="{{ old('debt') }}" />
                                     </div>
                                 </div>
                                 <div class="mt-2">

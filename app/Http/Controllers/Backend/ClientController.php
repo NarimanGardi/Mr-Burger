@@ -45,15 +45,15 @@ class ClientController extends Controller
 
         $request->validate([
             'name' => 'required|string|max:255|unique:clients,name',
-            'type' => 'required|string|max:255',
+            'debt' => 'required|numeric|min:0',
         ]);
 
         Client::create([
             'name' => $request->name,
-            'type' => $request->type,
+            'debt' => $request->debt,
         ]);
 
-        toast()->success('کڵایەنتەکە بەسەرکەوتویی زیاد کرا');
+        toast()->success('مقاولەکە بەسەرکەوتویی زیاد کرا');
         return redirect()->route('clients.index');
     }
 
@@ -62,33 +62,7 @@ class ClientController extends Controller
      */
     public function show(Request $request, Client $client)
     {
-        $name = $client->name;
-        $query = Transactions::where('name', $name);
-        $search = $request->input('search');
-
-        if (!empty($search)) {
-            $query->where(function ($q) use ($search) {
-                $q->where('type', 'like', '%' . $search . '%') 
-                    ->orWhere('amount', 'like', '%' . $search . '%')
-                    ->orWhere('action', 'like', '%' . $search . '%');
-            });
-        }
-
-        $startDate = $request->input('start_date');
-        $endDate = $request->input('end_date');
-
-        if (!empty($startDate) && !empty($endDate)) {
-            $adjustedEndDate = date('Y-m-d', strtotime($endDate . ' +1 day'));
-            $query->whereBetween('created_at', [$startDate, $adjustedEndDate]); 
-        } elseif (!empty($startDate)) {
-            $query->whereDate('created_at', '>=', $startDate);
-        } elseif (!empty($endDate)) {
-            $query->whereDate('created_at', '<=', $endDate);
-        }
-
-        $transactions = $query->latest()->paginate(10);
-
-        return view('backend.pages.clients.view', compact('client', 'transactions'));
+        return view('backend.pages.clients.view');
     }
 
     /**
@@ -96,7 +70,6 @@ class ClientController extends Controller
      */
     public function edit(Client $client)
     {
-        $this->authorize('edit-client');
         return view('backend.pages.clients.edit', compact('client'));
     }
 
@@ -105,19 +78,17 @@ class ClientController extends Controller
      */
     public function update(Request $request, Client $client)
     {
-        $this->authorize('edit-client');
-
         $request->validate([
             'name' => 'required|string|max:255|unique:clients,name,' . $client->id,
-            'type' => 'required|string|max:255',
+            'debt' => 'required|numeric|min:0',
         ]);
 
         $client->update([
             'name' => $request->name,
-            'type' => $request->type,
+            'debt' => $request->debt,
         ]);
 
-        toast()->success('کڵایەنتەکە بەسەرکەوتویی نوێکرایەوە');
+        toast()->success('مقاولەکە بەسەرکەوتویی نوێکرایەوە');
         return redirect()->route('clients.index');
     }
 
@@ -126,11 +97,9 @@ class ClientController extends Controller
      */
     public function destroy(Client $client)
     {
-        $this->authorize('delete-client');
-
         $client->delete();
 
-        toast()->success('کڵایەنتەکە بەسەرکەوتویی سڕایەوە');
+        toast()->success('مقاولەکە بەسەرکەوتویی سڕایەوە');
         return back();
     }
 }
