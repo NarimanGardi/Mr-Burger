@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Backend\FoodController;
 use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\Backend\ClientController;
@@ -25,8 +26,9 @@ Route::group(['middleware' => ['auth', 'isActive']], function () {
     Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
     Route::resource('clients', ClientController::class);
     Route::resource('roles', RoleController::class);
+    Route::get('users/{user}/status', [UserController::class, 'status'])->name('users.status');
     Route::resource('users', UserController::class);
-    // Route::get('/reports', [DashboardController::class, 'reports'])->name('reports');
+    Route::resource('foods', FoodController::class);
     Route::get('/default-theme', [ThemeSettingController::class, 'defaultTheme'])->name('default-theme');
     Route::get('/dark-theme', [ThemeSettingController::class, 'darkTheme'])->name('dark-theme');
     Route::get('/light-theme', [ThemeSettingController::class, 'lightTheme'])->name('light-theme');

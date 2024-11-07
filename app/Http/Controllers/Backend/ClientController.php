@@ -14,7 +14,6 @@ class ClientController extends Controller
      */
     public function index(Request $request)
     {
-        $this->authorize('manage-client');
         $search = $request->input('search');
 
         if (!empty($search)) {
@@ -31,8 +30,6 @@ class ClientController extends Controller
      */
     public function create()
     {
-        $this->authorize('create-client');
-
         return view('backend.pages.clients.create');
     }
 
@@ -41,8 +38,6 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-        $this->authorize('create-client');
-
         $request->validate([
             'name' => 'required|string|max:255|unique:clients,name',
             'debt' => 'required|numeric|min:0',

@@ -40,6 +40,12 @@
                     <span class="link-title">مقاولەکان</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="{{ route('foods.index') }}" class="nav-link">
+                    <i class="fa-solid fa-utensils"></i>
+                    <span class="link-title">خواردنەکان</span>
+                </a>
+            </li>
         </ul>
     </div>
 </nav>
