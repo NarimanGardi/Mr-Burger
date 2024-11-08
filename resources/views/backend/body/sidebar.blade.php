@@ -46,6 +46,12 @@
                     <span class="link-title">خواردنەکان</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="{{ route('orders.index') }}" class="nav-link">
+                    <i class="fa-solid fa-shopping-cart"></i>
+                    <span class="link-title">داواکاریەکان</span>
+                </a>
+            </li>
         </ul>
     </div>
 </nav>

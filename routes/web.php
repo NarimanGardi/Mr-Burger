@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\FoodController;
 use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\Backend\UserController;
+use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Backend\ClientController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\ThemeSettingController;
@@ -24,6 +25,7 @@ Route::redirect('/', 'login');
 
 Route::group(['middleware' => ['auth', 'isActive']], function () {
     Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+    Route::resource('orders', OrderController::class);
     Route::resource('clients', ClientController::class);
     Route::resource('roles', RoleController::class);
     Route::post('users/{id}/update/password', [UserController::class, 'updatePassword'])->name('users.update.password');

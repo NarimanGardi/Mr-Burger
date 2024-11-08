@@ -26,6 +26,8 @@
     <link rel="shortcut icon" href="{{ asset('backend/assets/images/logo.png') }}" />
 
     <link rel="stylesheet" href="{{ asset('backend/assets/css/paper.css') }}">
+
+    @livewireStyles
 </head>
 
 <body class="{{ Cache::has('light-theme') ? '' : 'sidebar-dark' }} sidebar-folded rtl">

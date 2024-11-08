@@ -20,4 +20,11 @@ class Food extends Model implements HasMedia
             ->addMediaCollection('image')
             ->singleFile();
     }
+
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class, 'food_order')
+            ->withPivot('price', 'amount')
+            ->withTimestamps();
+    }
 }
