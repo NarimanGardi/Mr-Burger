@@ -17,7 +17,7 @@
         </div>
 
         @foreach ($inputs as $index)
-            <div class="row align-items-center" wire:ignore>
+            <div class="row align-items-center">
                 <div class="mb-3 col-md-3">
                     @if ($index == 0)
                         <label class="form-label">خواردن</label>
@@ -87,34 +87,3 @@
         </div>
     </form>
 </div>
-@script
-    <script>
-        // Ensure Select2 is reinitialized when "Add Food" button is clicked
-        document.addEventListener('livewire:load', function() {
-            initializeSelect2();
-        });
-
-        document.addEventListener('livewire:update', function() {
-            initializeSelect2();
-        });
-
-        function initializeSelect2() {
-            if ($(".js-example-basic-single").length) {
-                $(".js-example-basic-single").select2();
-            }
-
-            // $(".js-example-basic-single").on('change', function(e) {
-            //     let fieldName = $(this).attr('wire:model.live');
-            //     if (fieldName) {
-            //         @this.set(fieldName, $(this).val());
-            //     }
-            // });
-        }
-
-        $(document).on('click', '.add-food-button', function() {
-            setTimeout(() => {
-                initializeSelect2();
-            }, 500);
-        });
-    </script>
-@endscript

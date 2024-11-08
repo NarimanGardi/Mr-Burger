@@ -70,15 +70,19 @@ class OrderCreate extends Component
     {
         $this->validate([
             'client_id' => 'required|exists:clients,id',
-            'food_ids.*' => 'required|exists:foods,id',
+            'food_ids.*' => 'required|exists:food,id',
             'quantities.*' => 'required|numeric|min:1',
             'prices.*' => 'required|numeric|min:0',
         ]);
 
+        $order_number = Order::max('order_number') + 1;
+
         $order = Order::create([
+            'user_id' => auth()->id(),
             'client_id' => $this->client_id,
             'status' => 'pending',
             'total' => $this->total,
+            'order_number' => $order_number,
         ]);
 
         foreach ($this->inputs as $index) {
@@ -88,7 +92,7 @@ class OrderCreate extends Component
             ]);
         }
 
-        session()->flash('success', 'Order created successfully!');
+        toast()->success('داواکاری بەسەرکەوتویی زیاد کرا');
         return redirect()->route('orders.index');
     }
 
