@@ -73,8 +73,6 @@
                                                 <button type="button" class="btn p-0 " data-bs-toggle="dropdown"><i
                                                         class="bx bx-dots-vertical-rounded"></i></button>
                                                 <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="{{ route('foods.show', $food->id) }}"><i
-                                                            class="bx bx-show me-1"></i> وردەکاری</a>
                                                     <a class="dropdown-item" href="{{ route('foods.edit', $food->id) }}"><i
                                                             class="bx bx-edit-alt me-1"></i> گۆڕانکاری</a>
                                                     <form action="{{ route('foods.destroy', $food->id) }}" method="post">

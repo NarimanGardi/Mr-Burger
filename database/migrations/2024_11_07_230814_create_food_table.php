@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('price');
             $table->boolean('is_available')->default(true);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

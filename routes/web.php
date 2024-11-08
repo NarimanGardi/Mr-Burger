@@ -26,6 +26,7 @@ Route::group(['middleware' => ['auth', 'isActive']], function () {
     Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
     Route::resource('clients', ClientController::class);
     Route::resource('roles', RoleController::class);
+    Route::post('users/{id}/update/password', [UserController::class, 'updatePassword'])->name('users.update.password');
     Route::get('users/{user}/status', [UserController::class, 'status'])->name('users.status');
     Route::resource('users', UserController::class);
     Route::resource('foods', FoodController::class);

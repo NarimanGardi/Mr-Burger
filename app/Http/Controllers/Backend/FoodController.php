@@ -75,7 +75,7 @@ class FoodController extends Controller
      */
     public function edit(Food $food)
     {
-        //
+        return view('backend.pages.foods.edit', compact('food'));
     }
 
     /**
@@ -83,7 +83,28 @@ class FoodController extends Controller
      */
     public function update(Request $request, Food $food)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:190',
+            'description' => 'required|string|max:190',
+            'price' => 'required|numeric|min:0',
+            'is_available' => 'required|boolean',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+    
+        $food->update([
+            'name' => $request->name,
+            'description' => $request->description,
+            'price' => $request->price,
+            'is_available' => $request->is_available,
+        ]);
+    
+        if ($request->hasFile('image')) {
+            $food->clearMediaCollection('image');
+            $food->addMediaFromRequest('image')->toMediaCollection('image');
+        }
+    
+        toast()->success('خوارەکە بەسەرکەوتویی نوێ کرایەوە');
+        return redirect()->route('foods.index');
     }
 
     /**
@@ -91,6 +112,8 @@ class FoodController extends Controller
      */
     public function destroy(Food $food)
     {
-        //
+        $food->delete();
+        toast()->success('خوارەکە بەسەرکەوتویی سڕایەوە');
+        return redirect()->route('foods.index');
     }
 }
